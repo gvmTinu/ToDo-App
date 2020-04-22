@@ -1,0 +1,19 @@
+#top {
+    padding: 5px 10px;
+    color: black;
+    background-color: white;
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+}
+
+#top:hover {
+    transition: 0.2s ease-in;
+    color: white;
+    background-color: black;
+}

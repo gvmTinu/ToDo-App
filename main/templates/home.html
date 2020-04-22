@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home - ToDo App</title>
+    <meta name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <script src="{% static 'main.js' %}"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+             </button>
+                <a class="navbar-brand">ToDo gVm</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                </ul>
+
+                <!-- Accounts part-->
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li><a href="accounts/logout"><span class="glyphicon glyphicon-user"></span> Logout </a></li>
+                    {% else %}
+                    <li><a href="accounts/register"><span class="glyphicon glyphicon-user"></span> Register </a></li>
+                    <li><a href="accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- User greeting-->
+    {% if user.is_authenticated %}
+    <h1>Welcome to my app, {{user.first_name}}</h1>
+    {% else %}
+    <h1>Welcome to my app.</h1>
+    {% endif %}
+
+    <!-- ToDoApp code (only if logged-in) -->
+    {% if user.is_authenticated %}
+    
+    <div class="center-column">
+	<form method="POST" action="/">
+		{% csrf_token %}
+		{{form.title}}
+		<input class="btn btn-info" type="submit" name="Create Task">
+	</form>
+
+	<div class="todo-list">
+
+	{% for task in tasks %}
+		<div class="item-row">
+			<a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a>
+			<a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a>
+
+			{% if task.complete == True %}
+			<strike>{{task}}</strike>
+			{% else %}
+			<span>{{task}}</span>
+			{% endif %}
+            
+		</div>
+	{% endfor %}
+	</div>
+</div>
+
+{% endif %}
+
+    <!-- Scroll-to-top button html code-->
+    <a href="/"><button id="top">Top</button></a>
+
+</body>
+</html

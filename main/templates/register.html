@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registration</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'accounts.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+                <a class="navbar-brand">ToDo gVm</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+                </ul>
+            </div>
+            
+        </div>
+    </nav>
+
+    <form action="register" method="post" id="regForm">
+        {% csrf_token %}
+        <br>
+        <p class="regPara"> First name: <br><input type="text" name="first_name" placeholder="Type your first name..."></p><br>
+        <p class="regPara"> Last name: <br><input type="text" name="last_name" placeholder="Type your last name..."></p><br>
+        <p class="regPara"> Username: <br><input type="text" name="username" placeholder="Type your username..."></p><br>
+        <p class="regPara"> Email: <br><input type="email" name="email" placeholder="Type your email..."></p><br>
+        <p class="regPara"> Choose a password: <br><input type="password" name="password1" placeholder="Choose a password..."></p><br>
+        <p class="regPara"> Confirm your password: <input type="password" name="password2" placeholder="Confirm your password..."></p><br>
+        <button id="submitBtn">Submit</button>
+    </form>
+
+    <div>
+        {% for message in messages %}
+        <h3> {{message}} </h3>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>
